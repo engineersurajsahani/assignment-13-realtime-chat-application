@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Group Chat & Messaging | Raj Rasal (150096725066)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Login / Setup Modal -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h2>💬 Join Chat Space</h2>
+      <p>Enter your username to connect to live channels</p>
+      <input type="text" id="login-username" placeholder="e.g. Aarav, Priya, John" />
+      <button id="login-btn">Enter Chat Arena</button>
+    </div>
+  </div>
+
+  <!-- Left Sidebar (Channels) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span>💬 DevSync Chat</span>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-title">Channels</div>
+      <ul class="channel-list">
+        <li class="channel-item active" data-room="general"># general</li>
+        <li class="channel-item" data-room="developers"># developers</li>
+        <li class="channel-item" data-room="random"># random</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: auto; padding: 16px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
+      <span id="my-profile-avatar" style="font-size: 1.4rem;">👤</span>
+      <div>
+        <div id="my-profile-name" style="font-weight: 600; font-size: 0.95rem;">Guest</div>
+        <div style="font-size: 0.75rem; color: #10b981;">Online (Socket.io)</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Chat Section -->
+  <main class="chat-main">
+    <header class="chat-header">
+      <h3 id="active-channel-name">#general</h3>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Real-Time WebSocket Engine</span>
+    </header>
+
+    <div id="messages-container" class="chat-messages">
+      <!-- Live chat message items inserted here -->
+    </div>
+
+    <div id="typing-alert" class="typing-indicator-bar"></div>
+
+    <div class="chat-input-area">
+      <input type="text" id="message-input" placeholder="Type a message or click an online user to DM..." autocomplete="off" />
+      <button id="send-btn">Send</button>
+    </div>
+  </main>
+
+  <!-- Right Online Roster -->
+  <aside class="user-roster">
+    <div class="section-title">Online Members</div>
+    <div id="users-roster" style="display: flex; flex-direction: column; gap: 4px;">
+      <!-- Active room users inserted here -->
+    </div>
+  </aside>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
