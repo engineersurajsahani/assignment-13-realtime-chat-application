@@ -1,4 +1,10 @@
 # 💬 Assignment 13: Real-Time Group Chat & Messaging Engine (Socket.io)
+
+---
+
+## 🌐 Live Production Deployment on Render
+- **Live Production URL:** [https://assignments13.onrender.com](https://assignments13.onrender.com)
+
 > **Track:** Backend & Real-Time Web | **Level:** Advanced | **Estimated Time:** 7–9 Hours  
 > **Tech Stack:** Node.js, Express.js, Socket.io, In-Memory/Database History Store, CORS
 
