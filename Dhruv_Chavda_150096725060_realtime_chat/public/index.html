@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💬 Real-Time Group Chat & Messaging</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-app-container">
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar-channels">
+      <div class="sidebar-header">
+        <div class="app-brand">
+          <span class="brand-icon">💬</span>
+          <h2>PulseChat</h2>
+        </div>
+      </div>
+
+      <!-- User Profile Card -->
+      <div class="current-user-card" id="current-user-card">
+        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Guest" id="my-avatar" class="avatar-sm" alt="Avatar">
+        <div class="user-meta">
+          <strong id="my-username">Guest</strong>
+          <span class="status-online"><span class="dot"></span> Online</span>
+        </div>
+      </div>
+
+      <!-- Channel Channels List -->
+      <div class="sidebar-section">
+        <div class="section-title">CHANNELS</div>
+        <ul class="channels-list" id="channels-list">
+          <li class="channel-item active" data-room="general">
+            <span class="hash">#</span> general
+          </li>
+          <li class="channel-item" data-room="developers">
+            <span class="hash">#</span> developers
+          </li>
+          <li class="channel-item" data-room="random">
+            <span class="hash">#</span> random
+          </li>
+        </ul>
+      </div>
+
+      <!-- Custom Channel Form -->
+      <form class="join-custom-room-form" id="custom-room-form">
+        <input type="text" id="custom-room-input" placeholder="+ Join or create room">
+      </form>
+    </aside>
+
+    <!-- Main Chat Workspace -->
+    <main class="chat-main">
+      <!-- Channel Top Header -->
+      <header class="chat-header">
+        <div class="header-left">
+          <span class="header-hash">#</span>
+          <h3 id="current-room-title">general</h3>
+          <span class="room-desc" id="current-room-desc">Public chat for all team members</span>
+        </div>
+        <div class="header-right">
+          <div class="members-badge">
+            <span class="dot"></span>
+            <span id="member-count">1 Online</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Message History Viewport -->
+      <div class="messages-viewport" id="messages-viewport">
+        <div class="messages-container" id="messages-container">
+          <!-- Messages will be injected here -->
+        </div>
+      </div>
+
+      <!-- Real-time Typing Indicator -->
+      <div class="typing-banner" id="typing-banner"></div>
+
+      <!-- Chat Input Toolbar -->
+      <footer class="chat-input-wrapper">
+        <form id="chat-form" class="chat-form">
+          <input type="text" id="message-input" placeholder="Message #general... (Press Enter to send)" autocomplete="off" required>
+          <button type="submit" class="btn-send" id="btn-send">
+            <span>Send</span> 🚀
+          </button>
+        </form>
+      </footer>
+    </main>
+
+    <!-- Right Members Sidebar -->
+    <aside class="sidebar-members">
+      <div class="members-header">
+        <h4>ONLINE USERS (<span id="roster-count">0</span>)</h4>
+      </div>
+      <div class="members-list" id="members-list">
+        <!-- Live members will be populated here -->
+      </div>
+    </aside>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-box">
+      <h2>Welcome to PulseChat 💬</h2>
+      <p>Enter your username to connect to live group channels and send private messages.</p>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username-input">Your Handle / Name</label>
+          <input type="text" id="username-input" placeholder="e.g. Aarav" required autofocus>
+        </div>
+        <div class="form-group">
+          <label>Choose Avatar Style</label>
+          <div class="avatar-picker" id="avatar-picker">
+            <img class="avatar-option selected" src="https://api.dicebear.com/7.x/bottts/svg?seed=Aarav" data-seed="Aarav" alt="Avatar 1">
+            <img class="avatar-option" src="https://api.dicebear.com/7.x/bottts/svg?seed=Priya" data-seed="Priya" alt="Avatar 2">
+            <img class="avatar-option" src="https://api.dicebear.com/7.x/bottts/svg?seed=Rohan" data-seed="Rohan" alt="Avatar 3">
+            <img class="avatar-option" src="https://api.dicebear.com/7.x/bottts/svg?seed=Maya" data-seed="Maya" alt="Avatar 4">
+          </div>
+        </div>
+        <button type="submit" class="btn-modal">Start Chatting</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Direct Message Modal -->
+  <div class="modal-overlay hidden" id="dm-modal">
+    <div class="modal-box">
+      <h3>Direct Message to <span id="dm-recipient-name">...</span></h3>
+      <form id="dm-form">
+        <div class="form-group">
+          <textarea id="dm-input" rows="3" placeholder="Type your private direct message..." required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="btn-close-dm">Cancel</button>
+          <button type="submit" class="btn-modal">Send DM</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Socket.io and Client Scripts -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
