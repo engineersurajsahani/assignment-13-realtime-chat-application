@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Real-Time Group Chat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="sidebar">
+    <h3>Rooms</h3>
+    <div id="roomList"></div>
+    <h3>Online</h3>
+    <div id="userList"></div>
+  </div>
+  <div id="main">
+    <div id="header"></div>
+    <div id="messages"></div>
+    <div id="typing"></div>
+    <div id="inputArea">
+      <input id="msgInput" placeholder="Type a message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
