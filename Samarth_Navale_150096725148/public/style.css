@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 15px;
+}
+
+.chat-app {
+  display: flex;
+  max-width: 900px;
+  height: 600px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.sidebar {
+  width: 250px;
+  border-right: 1px solid #ccc;
+  padding: 15px;
+  background: #fafafa;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.student-info {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.login-box {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 4px 6px;
+  margin: 4px 0 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.login-box button {
+  padding: 4px 8px;
+  font-size: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sidebar h4 {
+  font-size: 13px;
+  color: #555;
+  margin: 12px 0 6px 0;
+}
+
+.room-list, .user-list {
+  list-style: none;
+}
+
+.room-item {
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.room-item:hover {
+  background: #eee;
+}
+
+.room-item.active {
+  background: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.user-list li {
+  font-size: 12px;
+  padding: 3px 6px;
+  color: #444;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ccc;
+  background: #fdfdfd;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-item {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.message-item .sender {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.message-item .time {
+  font-size: 10px;
+  color: #888;
+  margin-left: 5px;
+}
+
+.typing-indicator {
+  padding: 0 15px 5px 15px;
+  font-size: 11px;
+  color: #777;
+  font-style: italic;
+  min-height: 18px;
+}
+
+.message-form {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  gap: 8px;
+}
+
+.message-form input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.message-form button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+}
