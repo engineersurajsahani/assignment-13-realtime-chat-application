@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        #chat-container { max-width: 600px; margin: 0 auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+        #messages { height: 300px; overflow-y: scroll; border: 1px solid #eee; padding: 10px; margin-bottom: 10px; }
+        .message { margin-bottom: 10px; }
+        .typing { font-style: italic; color: #888; }
+        #input-container { display: flex; }
+        #message-input { flex-grow: 1; padding: 10px; }
+        #send-btn { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h2>Chat Application - <span id="users-count">0</span> users online</h2>
+        <div id="messages"></div>
+        <div id="typing-indicator" class="typing"></div>
+        <div id="input-container">
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const username = prompt("Enter your username:");
+        
+        if (username) {
+            socket.emit('new-users-join', username);
+        }
+
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const usersCount = document.getElementById('users-count');
+
+        socket.on('users-count', (count) => {
+            usersCount.textContent = count;
+        });
+
+        socket.on('receive-message', (data) => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `<strong>${data.username}:</strong> ${data.message}`;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        socket.on('typing', (data) => {
+            typingIndicator.textContent = `${data.username} is typing...`;
+        });
+
+        socket.on('typing-stop', () => {
+            typingIndicator.textContent = '';
+        });
+
+        sendBtn.addEventListener('click', () => {
+            const message = messageInput.value;
+            if (message.trim() !== '') {
+                socket.emit('send-message', message);
+                messageInput.value = '';
+                socket.emit('stop-typing');
+            }
+        });
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            } else {
+                socket.emit('start-typing');
+                clearTimeout(window.typingTimeout);
+                window.typingTimeout = setTimeout(() => {
+                    socket.emit('stop-typing');
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
