@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Chat Application</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <h1>Chat App</h1>
+      <p>Enter your username to join</p>
+      <form id="login-form">
+        <input type="text" id="username-input" class="login-input" placeholder="Your username" maxlength="20" required>
+        <button type="submit" class="login-btn">Join Chat</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="user-info">
+        <div class="user-avatar" id="user-avatar">U</div>
+        <div class="user-details">
+          <h3 id="current-username">Loading...</h3>
+          <span class="user-status">Online</span>
+        </div>
+      </div>
+
+      <div class="rooms-section">
+        <h4>Rooms</h4>
+        <div class="room-list" id="rooms-list"></div>
+      </div>
+
+      <div class="users-section">
+        <h4>Users in Room</h4>
+        <div class="user-list" id="users-list"></div>
+      </div>
+    </aside>
+
+    <main class="chat-area">
+      <header class="chat-header">
+        <h2 id="room-title">Select a Room</h2>
+        <span class="chat-header-info" id="room-user-count"></span>
+      </header>
+
+      <div class="messages-container" id="messages-container">
+        <div class="empty-state">
+          <h3>Welcome!</h3>
+          <p>Select a room to start chatting</p>
+        </div>
+      </div>
+
+      <div class="typing-indicator" id="typing-indicator"></div>
+
+      <div class="chat-input-area">
+        <form id="message-form">
+          <input type="text" id="message-input" class="message-input" placeholder="Type your message..." autocomplete="off">
+          <button type="submit" class="send-btn">Send</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
