@@ -1,0 +1,205 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Login screen ---------- */
+
+#loginScreen {
+  max-width: 320px;
+  margin: 100px auto;
+  padding: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+#loginScreen h2 {
+  margin-top: 0;
+}
+
+#loginScreen input,
+#loginScreen select,
+#loginScreen button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+#loginScreen button {
+  background: #4a76a8;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------- Chat screen layout ---------- */
+
+#chatScreen {
+  display: flex;
+  height: 100vh;
+}
+
+#sidebar {
+  width: 180px;
+  background: #2c2f33;
+  color: white;
+  padding: 10px;
+}
+
+#sidebar h3 {
+  margin-top: 0;
+  font-size: 14px;
+  color: #aaa;
+}
+
+#roomList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.roomItem {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.roomItem:hover {
+  background: #3a3d42;
+}
+
+.roomItem.active {
+  background: #4a76a8;
+}
+
+#customRoom {
+  margin-top: 15px;
+}
+
+#customRoom input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 5px;
+}
+
+#customRoom button {
+  width: 100%;
+  padding: 6px;
+}
+
+#chatArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+#chatHeader {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+
+#dmModeLabel {
+  margin-left: 10px;
+  color: #a34;
+  font-weight: normal;
+}
+
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.messageRow {
+  margin-bottom: 8px;
+}
+
+.messageSender {
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.messageTime {
+  color: #888;
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+.dmMessage {
+  color: #a34;
+}
+
+#typingIndicator {
+  min-height: 18px;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+#messageForm {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+}
+
+#messageInput {
+  flex: 1;
+  padding: 8px;
+  margin-right: 8px;
+}
+
+#sendButton {
+  padding: 8px 16px;
+  background: #4a76a8;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#userSidebar {
+  width: 160px;
+  background: #f7f7f7;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+}
+
+#userSidebar h3 {
+  margin-top: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+#userList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#userList li {
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#userList li:hover {
+  background: #e0e0e0;
+}
+
+#cancelDmButton {
+  margin-top: 10px;
+  width: 100%;
+  padding: 6px;
+}

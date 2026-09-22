@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Group Chat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Login screen -->
+  <div id="loginScreen">
+    <h2>Join the chat</h2>
+    <input id="usernameInput" type="text" placeholder="Enter your name" maxlength="20" />
+    <button id="loginButton">Enter Chat</button>
+  </div>
+
+  <!-- Chat screen -->
+  <div id="chatScreen" class="hidden">
+
+    <div id="sidebar">
+      <h3>Rooms</h3>
+      <ul id="roomList">
+        <li class="roomItem" data-room="general">#general</li>
+        <li class="roomItem" data-room="developers">#developers</li>
+        <li class="roomItem" data-room="random">#random</li>
+      </ul>
+      <div id="customRoom">
+        <input id="customRoomInput" type="text" placeholder="new-room-name" />
+        <button id="joinCustomRoomButton">Join</button>
+      </div>
+    </div>
+
+    <div id="chatArea">
+      <div id="chatHeader">
+        <span id="currentRoomLabel">Select a room</span>
+        <span id="dmModeLabel" class="hidden"></span>
+      </div>
+
+      <div id="messages"></div>
+
+      <div id="typingIndicator"></div>
+
+      <div id="messageForm">
+        <input id="messageInput" type="text" placeholder="Type a message..." />
+        <button id="sendButton">Send</button>
+      </div>
+    </div>
+
+    <div id="userSidebar">
+      <h3>Online</h3>
+      <ul id="userList"></ul>
+      <button id="cancelDmButton" class="hidden">Back to room chat</button>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
