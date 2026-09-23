@@ -1,0 +1,64 @@
+{
+  "general": [
+    {
+      "id": "seed_g1",
+      "sender": "System",
+      "avatar": null,
+      "message": "Welcome to #general! This is a seeded message so you can test instantly.",
+      "timestamp": "09:01"
+    },
+    {
+      "id": "seed_g2",
+      "sender": "Aarav",
+      "avatar": "avatar1.svg",
+      "message": "Hey team, group chat is live! 🎉",
+      "timestamp": "09:05"
+    },
+    {
+      "id": "seed_g3",
+      "sender": "Priya",
+      "avatar": "avatar2.svg",
+      "message": "Love the dark theme UI. 🔥",
+      "timestamp": "09:07"
+    }
+  ],
+  "developers": [
+    {
+      "id": "seed_d1",
+      "sender": "System",
+      "avatar": null,
+      "message": "Welcome to #developers — for all things code & engineering.",
+      "timestamp": "10:00"
+    },
+    {
+      "id": "seed_d2",
+      "sender": "Aarav",
+      "avatar": "avatar1.svg",
+      "message": "Socket.io event handlers are wired up. Rooms work perfectly.",
+      "timestamp": "10:04"
+    },
+    {
+      "id": "seed_d3",
+      "sender": "Rohan",
+      "avatar": "avatar3.svg",
+      "message": "Typing indicators update in real time with zero latency.",
+      "timestamp": "10:06"
+    }
+  ],
+  "random": [
+    {
+      "id": "seed_r1",
+      "sender": "System",
+      "avatar": null,
+      "message": "Welcome to #random — off-topic chat goes here.",
+      "timestamp": "11:15"
+    },
+    {
+      "id": "seed_r2",
+      "sender": "Priya",
+      "avatar": "avatar2.svg",
+      "message": "Weekend hackathon anyone? 🚀",
+      "timestamp": "11:20"
+    }
+  ]
+}
