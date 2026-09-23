@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Group Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loginScreen" class="screen">
+    <form id="loginForm" class="login-card">
+      <h1>Real-Time Chat</h1>
+      <p>Join the messaging engine</p>
+      <input id="username" placeholder="Enter username" required maxlength="30">
+      <button type="submit">Join Chat</button>
+    </form>
+  </div>
+
+  <div id="chatScreen" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <h2>Chat Engine</h2>
+        <span id="currentUser"></span>
+      </div>
+
+      <h3>ROOMS</h3>
+      <button class="room-btn active" data-room="general"># general</button>
+      <button class="room-btn" data-room="developers"># developers</button>
+      <button class="room-btn" data-room="random"># random</button>
+
+      <h3>ONLINE IN ROOM</h3>
+      <ul id="userList"></ul>
+
+      <div class="dm">
+        <h3>DIRECT MESSAGE</h3>
+        <select id="recipient"></select>
+        <input id="dmMessage" placeholder="Private message">
+        <button id="sendDm">Send DM</button>
+      </div>
+    </aside>
+
+    <main class="chat">
+      <header class="chat-header">
+        <div>
+          <h2 id="roomTitle"># general</h2>
+          <span id="status">Connected</span>
+        </div>
+      </header>
+
+      <section id="messages" class="messages"></section>
+      <div id="typing" class="typing"></div>
+
+      <form id="messageForm" class="composer">
+        <input id="messageInput" autocomplete="off" placeholder="Type a message...">
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

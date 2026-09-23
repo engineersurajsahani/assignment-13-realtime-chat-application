@@ -1,0 +1,220 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111827;
+  color: #f9fafb;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #0f172a;
+}
+
+.login-card {
+  width: min(420px, 90%);
+  padding: 35px;
+  border-radius: 16px;
+  background: #1e293b;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.login-card h1 {
+  margin-bottom: 8px;
+}
+
+.login-card p {
+  color: #94a3b8;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+input,
+select {
+  background: #334155;
+  color: white;
+}
+
+button {
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.sidebar {
+  padding: 20px;
+  background: #0f172a;
+  border-right: 1px solid #334155;
+}
+
+.brand {
+  margin-bottom: 30px;
+}
+
+.brand h2 {
+  margin: 0;
+}
+
+.brand span,
+#status {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.sidebar h3 {
+  font-size: 11px;
+  color: #64748b;
+  letter-spacing: 1px;
+  margin-top: 24px;
+}
+
+.room-btn {
+  background: transparent;
+  text-align: left;
+  margin: 2px 0;
+}
+
+.room-btn.active {
+  background: #312e81;
+}
+
+#userList {
+  padding: 0;
+  list-style: none;
+}
+
+#userList li {
+  padding: 8px 0;
+  color: #cbd5e1;
+}
+
+.dm {
+  margin-top: 20px;
+}
+
+.chat {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-width: 0;
+}
+
+.chat-header {
+  padding: 18px 25px;
+  border-bottom: 1px solid #334155;
+}
+
+.chat-header h2 {
+  margin: 0 0 4px;
+}
+
+.messages {
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.message {
+  width: fit-content;
+  max-width: 70%;
+  margin-bottom: 14px;
+  padding: 12px 15px;
+  background: #1e293b;
+  border-radius: 12px;
+}
+
+.message.mine {
+  margin-left: auto;
+  background: #3730a3;
+}
+
+.message-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.message-header span {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.message p {
+  margin: 6px 0 0;
+  word-break: break-word;
+}
+
+.typing {
+  height: 24px;
+  padding-left: 25px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.composer {
+  display: flex;
+  gap: 10px;
+  padding: 15px 25px 25px;
+}
+
+.composer input {
+  margin: 0;
+  flex: 1;
+}
+
+.composer button {
+  width: 100px;
+  margin: 0;
+}
+
+.system-message {
+  margin: 10px auto;
+  padding: 9px 13px;
+  max-width: 80%;
+  border-radius: 8px;
+  background: #334155;
+  color: #cbd5e1;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 750px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .message {
+    max-width: 85%;
+  }
+}
