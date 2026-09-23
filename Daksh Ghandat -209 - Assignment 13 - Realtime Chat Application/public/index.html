@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SyncChat — Real-Time Chat</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>" />
+</head>
+<body>
+  <!-- Login overlay -->
+  <div id="loginOverlay" class="overlay">
+    <div class="login-card">
+      <div class="login-logo">💬</div>
+      <h1>SyncChat</h1>
+      <p class="login-sub">Real-time group chat &amp; direct messages</p>
+      <form id="loginForm" autocomplete="off">
+        <label class="field">
+          <span>Pick an avatar</span>
+          <div class="avatar-picker" id="avatarPicker">
+            <img src="avatars/avatar1.svg" data-avatar="avatar1.svg" class="avatar-option active" alt="avatar 1" />
+            <img src="avatars/avatar2.svg" data-avatar="avatar2.svg" class="avatar-option" alt="avatar 2" />
+            <img src="avatars/avatar3.svg" data-avatar="avatar3.svg" class="avatar-option" alt="avatar 3" />
+            <img src="avatars/avatar4.svg" data-avatar="avatar4.svg" class="avatar-option" alt="avatar 4" />
+          </div>
+        </label>
+        <label class="field">
+          <span>Username</span>
+          <input id="usernameInput" type="text" maxlength="24" placeholder="Enter your name…" required />
+        </label>
+        <button type="submit" class="btn-primary">Join chat</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main chat app -->
+  <main id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-dot"></span>
+        <strong>SyncChat</strong>
+        <span id="connectionBadge" class="badge" title="Connection status">Connecting…</span>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">CHANNELS</div>
+        <ul id="roomList" class="room-list"></ul>
+      </div>
+
+      <div class="sidebar-section grow">
+        <div class="sidebar-heading">
+          ONLINE — <span id="onlineCount">0</span>
+        </div>
+        <ul id="userList" class="user-list"></ul>
+      </div>
+
+      <div class="sidebar-me">
+        <img id="meAvatar" class="avatar sm" alt="me" />
+        <div class="me-meta">
+          <strong id="meName"></strong>
+          <span id="meRoom">general</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="chat">
+      <header class="chat-header">
+        <div>
+          <h2 id="roomTitle">#general</h2>
+          <span id="roomMembers">0 online</span>
+        </div>
+        <span id="roomSysType" class="room-type">GROUP</span>
+      </header>
+
+      <div id="messages" class="messages">
+        <div class="welcome">
+          <div class="welcome-icon">👋</div>
+          <p>Welcome to <strong id="welcomeRoom">#general</strong></p>
+          <small>Discussions are stored &amp; replayed to new joiners automatically.</small>
+        </div>
+      </div>
+
+      <div id="typingIndicator" class="typing-indicator hidden">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span id="typingText"></span>
+      </div>
+
+      <form id="messageForm" class="composer" autocomplete="off">
+        <input id="messageInput" type="text" maxlength="1000" placeholder="Type a message… (Enter to send)" />
+        <button type="submit" class="btn-send" aria-label="Send">➤</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Direct message panel -->
+  <div id="dmPanel" class="dm-panel hidden">
+    <header class="dm-header">
+      <img id="dmAvatar" class="avatar sm" alt="dm" />
+      <div>
+        <h3 id="dmName"></h3>
+        <span>Direct message</span>
+      </div>
+      <button id="dmClose" class="btn-ghost" aria-label="Close">✕</button>
+    </header>
+    <div id="dmMessages" class="dm-messages"></div>
+    <form id="dmForm" class="composer" autocomplete="off">
+      <input id="dmInput" type="text" maxlength="1000" placeholder="Send a private message…" />
+      <button type="submit" class="btn-send" aria-label="Send">➤</button>
+    </form>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
