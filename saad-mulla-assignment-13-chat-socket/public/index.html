@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Chat Engine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-overlay" class="overlay">
+    <div class="card login-card">
+      <h2>Welcome to ChatEngine</h2>
+      <p>Enter your username to join channels</p>
+      <input type="text" id="username-input" placeholder="e.g. Aarav" maxlength="20" autofocus />
+      <button id="login-btn">Join Engine</button>
+    </div>
+  </div>
+
+  <!-- App Layout -->
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h3>⚡ ChatEngine</h3>
+      </div>
+      
+      <div class="section-title">CHANNELS</div>
+      <ul class="room-list">
+        <li class="room-item active" data-room="general"># general</li>
+        <li class="room-item" data-room="developers"># developers</li>
+        <li class="room-item" data-room="random"># random</li>
+      </ul>
+
+      <div class="section-title">ONLINE IN ROOM (<span id="user-count">0</span>)</div>
+      <ul id="user-list" class="user-list"></ul>
+
+      <div class="user-profile">
+        <div class="avatar" id="my-avatar">👤</div>
+        <div class="user-info">
+          <div class="user-name" id="my-name">Guest</div>
+          <div class="user-status">Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Window -->
+    <main class="chat-area">
+      <header class="chat-header">
+        <h3 id="current-room-title"># general</h3>
+        <span class="room-badge">Public Channel</span>
+      </header>
+
+      <div class="messages-container" id="messages-container"></div>
+
+      <div class="typing-indicator" id="typing-indicator"></div>
+
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Message #general..." disabled />
+        <button id="send-btn" disabled>Send</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- DM Modal -->
+  <div id="dm-modal" class="overlay hidden">
+    <div class="card dm-card">
+      <div class="dm-header">
+        <h3 id="dm-target-name">Direct Message</h3>
+        <button id="close-dm-btn">&times;</button>
+      </div>
+      <div class="dm-messages" id="dm-messages"></div>
+      <div class="chat-input-area">
+        <input type="text" id="dm-input" placeholder="Send private message..." />
+        <button id="dm-send-btn">Send DM</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
