@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeralaXplore Real-Time Chat Engine</title>
+  <!-- Socket.io Client Library -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- LOGIN MODAL OVERLAY -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="logo-icon"><i class="fa-solid fa-comments"></i></div>
+        <h2>Welcome to ChatXplore</h2>
+        <p>Real-Time Group Chat & Direct Messaging Engine</p>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username-input">Enter Your Display Name</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input type="text" id="username-input" placeholder="e.g. Aarav, Priya, Rohan" required autocomplete="off" maxlength="25">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Select Avatar</label>
+          <div class="avatar-selector">
+            <label class="avatar-option">
+              <input type="radio" name="avatar" value="avatar1.png" checked>
+              <span class="avatar-badge avatar-1"><i class="fa-solid fa-robot"></i></span>
+            </label>
+            <label class="avatar-option">
+              <input type="radio" name="avatar" value="avatar2.png">
+              <span class="avatar-badge avatar-2"><i class="fa-solid fa-user-ninja"></i></span>
+            </label>
+            <label class="avatar-option">
+              <input type="radio" name="avatar" value="avatar3.png">
+              <span class="avatar-badge avatar-3"><i class="fa-solid fa-user-astronaut"></i></span>
+            </label>
+            <label class="avatar-option">
+              <input type="radio" name="avatar" value="avatar4.png">
+              <span class="avatar-badge avatar-4"><i class="fa-solid fa-ghost"></i></span>
+            </label>
+            <label class="avatar-option">
+              <input type="radio" name="avatar" value="avatar5.png">
+              <span class="avatar-badge avatar-5"><i class="fa-solid fa-cat"></i></span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary btn-block">Join Chat Engine <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MAIN CHAT APP CONTAINER -->
+  <div id="app-container" class="app-container hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <!-- App Brand -->
+      <div class="brand">
+        <i class="fa-solid fa-bolt brand-logo"></i>
+        <span class="brand-title">ChatXplore</span>
+        <span class="status-indicator online"></span>
+      </div>
+
+      <!-- Current User Profile -->
+      <div class="user-profile">
+        <div class="profile-avatar" id="current-user-avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="profile-info">
+          <span class="profile-name" id="current-user-name">User</span>
+          <span class="profile-socket" id="current-user-socket" title="Click to copy Socket ID">Socket: --</span>
+        </div>
+      </div>
+
+      <!-- Channels List -->
+      <div class="sidebar-section">
+        <div class="section-header">
+          <span>CHANNELS</span>
+        </div>
+        <ul class="room-list">
+          <li class="room-item active" data-room="general">
+            <i class="fa-solid fa-hashtag"></i> general
+          </li>
+          <li class="room-item" data-room="developers">
+            <i class="fa-solid fa-hashtag"></i> developers
+          </li>
+          <li class="room-item" data-room="random">
+            <i class="fa-solid fa-hashtag"></i> random
+          </li>
+        </ul>
+
+        <!-- Join Custom Channel -->
+        <div class="custom-room-box">
+          <input type="text" id="custom-room-input" placeholder="Join custom #room..." autocomplete="off">
+          <button id="join-custom-room-btn"><i class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
+
+      <!-- Active Room Users -->
+      <div class="sidebar-section">
+        <div class="section-header">
+          <span>ROOM MEMBERS (<span id="room-user-count">0</span>)</span>
+        </div>
+        <ul class="user-roster" id="room-user-list">
+          <!-- Room users populated dynamically -->
+        </ul>
+      </div>
+
+      <!-- All Connected Users / Direct Messages -->
+      <div class="sidebar-section flex-expand">
+        <div class="section-header">
+          <span>ONLINE USERS (DM)</span>
+        </div>
+        <ul class="user-roster" id="all-user-list">
+          <!-- All users populated dynamically -->
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CHAT AREA -->
+    <main class="chat-main">
+      <!-- Chat Header -->
+      <header class="chat-header">
+        <div class="header-left">
+          <i class="fa-solid fa-hashtag header-icon"></i>
+          <div>
+            <h3 id="current-room-title">developers</h3>
+            <span class="room-subtitle" id="current-room-subtitle">Active group messaging channel</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="btn-icon" id="open-dm-modal-btn" title="Direct Messages">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span class="badge-dot hidden" id="dm-notification-badge"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Message History Container -->
+      <div class="messages-container" id="messages-container">
+        <!-- Messages rendered here -->
+      </div>
+
+      <!-- Typing Indicator Bar -->
+      <div class="typing-bar" id="typing-bar">
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span id="typing-text" class="typing-text">Someone is typing...</span>
+      </div>
+
+      <!-- Message Input Form -->
+      <footer class="chat-footer">
+        <form id="chat-form">
+          <input type="text" id="message-input" placeholder="Message #developers..." autocomplete="off" required>
+          <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i> Send</button>
+        </form>
+      </footer>
+    </main>
+
+  </div>
+
+  <!-- DIRECT MESSAGE MODAL -->
+  <div id="dm-modal" class="modal-overlay hidden">
+    <div class="modal-card dm-modal-card">
+      <div class="dm-header">
+        <h3><i class="fa-solid fa-lock"></i> Private Direct Messages</h3>
+        <button id="close-dm-modal-btn" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="dm-body">
+        <div class="dm-sidebar">
+          <span class="dm-section-title">Select User</span>
+          <ul id="dm-user-select-list" class="dm-user-list">
+            <!-- Populated dynamically -->
+          </ul>
+        </div>
+        <div class="dm-chat-area">
+          <div id="dm-target-info" class="dm-target-info">
+            <span>Select a user from the list to start private messaging</span>
+          </div>
+          <div id="dm-messages-container" class="dm-messages-container">
+            <!-- DM messages rendered here -->
+          </div>
+          <form id="dm-form" class="dm-form hidden">
+            <input type="text" id="dm-input" placeholder="Send direct message..." autocomplete="off" required>
+            <button type="submit" class="btn-send-dm"><i class="fa-solid fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
