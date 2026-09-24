@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseChat - Real-Time Group Chat & Messaging</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Login Modal Overlay -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-logo">💬</span>
+        <h2>Welcome to PulseChat</h2>
+        <p>Join live channels or start direct messaging in real time.</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="usernameInput">Username</label>
+          <input type="text" id="usernameInput" placeholder="e.g. Aarav" required autofocus maxlength="20" />
+        </div>
+
+        <div class="form-group">
+          <label>Select Avatar</label>
+          <div class="avatar-picker" id="avatarPicker">
+            <button type="button" class="avatar-opt active" data-avatar="🧑‍💻">🧑‍💻</button>
+            <button type="button" class="avatar-opt" data-avatar="🚀">🚀</button>
+            <button type="button" class="avatar-opt" data-avatar="🐱">🐱</button>
+            <button type="button" class="avatar-opt" data-avatar="🦊">🦊</button>
+            <button type="button" class="avatar-opt" data-avatar="⚡">⚡</button>
+            <button type="button" class="avatar-opt" data-avatar="🎨">🎨</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Enter Chat</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main App Layout -->
+  <div class="app-container" id="appContainer">
+    
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="app-logo">💬</span>
+        <h3>PulseChat</h3>
+      </div>
+
+      <!-- Channels List -->
+      <div class="sidebar-section">
+        <div class="section-title">
+          <span>CHANNELS</span>
+        </div>
+        <ul class="channel-list" id="channelList">
+          <li class="channel-item active" data-room="general">
+            <span class="channel-hash">#</span>
+            <span class="channel-name">general</span>
+          </li>
+          <li class="channel-item" data-room="developers">
+            <span class="channel-hash">#</span>
+            <span class="channel-name">developers</span>
+          </li>
+          <li class="channel-item" data-room="random">
+            <span class="channel-hash">#</span>
+            <span class="channel-name">random</span>
+          </li>
+        </ul>
+        
+        <!-- Create Channel -->
+        <div class="add-channel-box">
+          <input type="text" id="newChannelInput" placeholder="New room name..." maxlength="20" />
+          <button id="addChannelBtn" title="Create Room">+</button>
+        </div>
+      </div>
+
+      <!-- Online Direct Messaging Users -->
+      <div class="sidebar-section dm-section">
+        <div class="section-title">
+          <span>DIRECT MESSAGES</span>
+        </div>
+        <ul class="user-list" id="onlineUsersList">
+          <!-- Populated dynamically -->
+        </ul>
+      </div>
+
+      <!-- User Profile Footer -->
+      <div class="user-profile-footer">
+        <div class="user-avatar" id="myAvatar">🧑‍💻</div>
+        <div class="user-details">
+          <span class="user-name" id="myName">Aarav</span>
+          <span class="user-status"><span class="status-dot"></span> Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Window Area -->
+    <main class="chat-area">
+      <!-- Chat Header -->
+      <header class="chat-header">
+        <div class="chat-header-info">
+          <h3 id="currentChatTitle"># general</h3>
+          <span class="chat-subtitle" id="chatSubtitle">Public Room</span>
+        </div>
+        <div class="room-roster" id="roomRoster">
+          <span class="roster-label">In Room:</span>
+          <div class="roster-avatars" id="rosterAvatars"></div>
+        </div>
+      </header>
+
+      <!-- Messages Stream -->
+      <div class="messages-container" id="messagesContainer">
+        <!-- Messages appended here -->
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing-indicator" id="typingIndicator"></div>
+
+      <!-- Message Input Bar -->
+      <form class="message-input-bar" id="messageForm">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Message #general..."
+          autocomplete="off"
+        />
+        <button type="submit" class="btn btn-send" id="sendBtn">
+          <span>Send</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </form>
+    </main>
+
+    <!-- Direct Message Modal Overlay -->
+    <div id="dmModal" class="modal-overlay hidden">
+      <div class="modal-card dm-card">
+        <div class="modal-header">
+          <span id="dmTargetAvatar" class="modal-logo">👤</span>
+          <h2 id="dmTargetName">Direct Message</h2>
+          <button class="close-modal-btn" id="closeDmModalBtn">&times;</button>
+        </div>
+        <div class="dm-messages-container" id="dmMessagesContainer"></div>
+        <form class="message-input-bar dm-input-bar" id="dmForm">
+          <input type="text" id="dmInput" placeholder="Send private message..." autocomplete="off" />
+          <button type="submit" class="btn btn-send">Send</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Socket.io Script -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
