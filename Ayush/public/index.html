@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Real-Time Chat</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  
+  <div id="login-screen" class="screen">
+    <div class="login-card">
+      <h1>💬 Real-Time Chat</h1>
+      <p class="subtitle">Group rooms &amp; direct messages, powered by Socket.io</p>
+      <input id="username-input" type="text" placeholder="Choose a username" maxlength="20" />
+      <button id="login-btn">Join Chat</button>
+      <p id="login-error" class="error-text"></p>
+    </div>
+  </div>
+
+  
+  <div id="chat-screen" class="screen hidden">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="brand">💬 ChatApp</span>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Rooms</h3>
+        <ul id="room-list" class="room-list">
+          <li data-room="general" class="room-item active">#general</li>
+          <li data-room="developers" class="room-item">#developers</li>
+          <li data-room="random" class="room-item">#random</li>
+          <li data-room="gaming" class="room-item">#gaming</li>
+          <li data-room="tech" class="room-item">#tech</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Online in room (<span id="user-count">0</span>)</h3>
+        <ul id="user-list" class="user-list"></ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <span id="me-username"></span>
+      </div>
+    </aside>
+
+    <main class="chat-main">
+      <header class="chat-header">
+        <span id="current-room-label">#general</span>
+        <span id="typing-indicator" class="typing-indicator"></span>
+      </header>
+
+      <div id="messages" class="messages"></div>
+
+      <form id="message-form" class="message-form">
+        <input id="message-input" type="text" placeholder="Message #general" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
