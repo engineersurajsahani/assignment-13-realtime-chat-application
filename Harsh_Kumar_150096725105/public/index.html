@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Chat</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div id="loginPage" class="active">
+    <div class="login-box">
+      <h2>Join Chat</h2>
+      <input type="text" id="usernameInput" placeholder="Enter Username...">
+      <button id="loginBtn">Join</button>
+    </div>
+  </div>
+
+  <div id="chatPage">
+    <div class="sidebar">
+      <h3>Rooms</h3>
+      <ul id="roomList">
+        <li class="room active" data-room="general">#general</li>
+        <li class="room" data-room="developers">#developers</li>
+        <li class="room" data-room="random">#random</li>
+      </ul>
+      <h3>Online in <span id="currentRoomDisplay">#general</span></h3>
+      <ul id="userList"></ul>
+    </div>
+    
+    <div class="main-chat">
+      <div class="chat-header">
+        <h2 id="roomTitle">#general</h2>
+      </div>
+      
+      <div class="chat-messages" id="messagesContainer">
+        <!-- Messages go here -->
+      </div>
+      
+      <div class="typing-indicator" id="typingIndicator"></div>
+      
+      <div class="chat-input-container">
+        <input type="text" id="messageInput" placeholder="Type a message...">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
