@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Group Chat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1>💬 ChatSpace</h1>
+
+      <div class="login-box">
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter username"
+        />
+
+        <input
+          type="text"
+          id="avatar"
+          placeholder="Avatar (optional)"
+        />
+
+        <button id="loginBtn">Login</button>
+      </div>
+
+      <div class="rooms">
+        <h3>Rooms</h3>
+
+        <button class="room-btn" data-room="general">
+          # general
+        </button>
+
+        <button class="room-btn" data-room="developers">
+          # developers
+        </button>
+
+        <button class="room-btn" data-room="random">
+          # random
+        </button>
+      </div>
+
+      <div class="users-section">
+        <h3>Online Users</h3>
+        <ul id="userList"></ul>
+      </div>
+    </aside>
+
+    <!-- Main Chat -->
+    <main class="chat">
+
+      <header class="chat-header">
+        <div>
+          <h2 id="roomTitle"># general</h2>
+          <p id="status">Not connected</p>
+        </div>
+      </header>
+
+      <div id="messages" class="messages"></div>
+
+      <div id="typingIndicator" class="typing"></div>
+
+      <form id="messageForm" class="message-form">
+
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Type a message..."
+          autocomplete="off"
+        />
+
+        <button type="submit">Send</button>
+
+      </form>
+
+      <!-- Direct Message -->
+      <div class="dm-box">
+
+        <input
+          type="text"
+          id="recipientId"
+          placeholder="Recipient Socket ID"
+        />
+
+        <input
+          type="text"
+          id="dmInput"
+          placeholder="Private message..."
+        />
+
+        <button id="dmBtn">Send DM</button>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
