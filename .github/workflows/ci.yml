@@ -1,0 +1,51 @@
+name: PulseChat CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Root Dependencies
+        run: npm install
+
+      - name: Install Server Dependencies
+        run: cd server && npm install
+
+      - name: Install Client Dependencies
+        run: cd client && npm install
+
+      - name: Typecheck Server
+        run: cd server && npm run build
+
+      - name: Run Server Tests
+        env:
+          MONGO_URI: mongodb://127.0.0.1:27017/pulsechat_test
+          JWT_SECRET: ci_secret_key_1234567890_test
+        run: cd server && npm test
+
+      - name: Typecheck & Test Client
+        run: cd client && npm test
+
+      - name: Build Client Production Bundle
+        run: cd client && npm run build

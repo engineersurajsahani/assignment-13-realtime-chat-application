@@ -1,0 +1,95 @@
+/* Slate & Arctic Cyan — Light Theme */
+:root,
+[data-theme="light"] {
+  --bg-app: #F7F9FB;
+  --bg-sidebar: #FFFFFF;
+  --bg-rail: #EFF3F7;
+  --bg-panel: #FFFFFF;
+  --bg-elevated: #F0F4F8;
+  --bg-hover: #EAF0F6;
+  --bg-selected: #E2ECF4;
+  --bg-input: #FFFFFF;
+  --bg-message-own: #287F9F;
+  --bg-message-other: #EFF3F7;
+  --brand-primary: #287F9F;
+  --brand-primary-hover: #1F6B86;
+  --brand-secondary: #55A9C7;
+  --brand-soft: #E2ECF4;
+  --text-primary: #242B35;
+  --text-secondary: #627487;
+  --text-muted: #8E9FAA;
+  --text-on-primary: #FFFFFF;
+  --border-default: #E3EAF0;
+  --border-strong: #CDD8E2;
+  --focus-ring: #55A9C7;
+  --status-online: #1F9D68;
+  --status-warning: #D9822B;
+  --status-error: #D13B4B;
+  --status-info: #287F9F;
+
+  --color-scheme: light;
+}
+
+/* Slate & Arctic Cyan — Dark Theme */
+[data-theme="dark"] {
+  --bg-app: #1C222B;
+  --bg-sidebar: #242B35;
+  --bg-rail: #191E26;
+  --bg-panel: #2A3340;
+  --bg-elevated: #364353;
+  --bg-hover: #3C4B5D;
+  --bg-selected: #344B5E;
+  --bg-input: #202731;
+  --bg-message-own: #287F9F;
+  --bg-message-other: #364353;
+  --brand-primary: #55A9C7;
+  --brand-primary-hover: #67B8D4;
+  --brand-secondary: #287F9F;
+  --brand-soft: #2B4455;
+  --text-primary: #F7F9FB;
+  --text-secondary: #B1C2D2;
+  --text-muted: #7E92A6;
+  --text-on-primary: #FFFFFF;
+  --border-default: #364353;
+  --border-strong: #4A5B70;
+  --focus-ring: #55A9C7;
+  --status-online: #36B37E;
+  --status-warning: #EBB059;
+  --status-error: #FF6B7A;
+  --status-info: #55A9C7;
+
+  --color-scheme: dark;
+}
+
+/* Automatic System Preference Support */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --bg-app: #1C222B;
+    --bg-sidebar: #242B35;
+    --bg-rail: #191E26;
+    --bg-panel: #2A3340;
+    --bg-elevated: #364353;
+    --bg-hover: #3C4B5D;
+    --bg-selected: #344B5E;
+    --bg-input: #202731;
+    --bg-message-own: #287F9F;
+    --bg-message-other: #364353;
+    --brand-primary: #55A9C7;
+    --brand-primary-hover: #67B8D4;
+    --brand-secondary: #287F9F;
+    --brand-soft: #2B4455;
+    --text-primary: #F7F9FB;
+    --text-secondary: #B1C2D2;
+    --text-muted: #7E92A6;
+    --text-on-primary: #FFFFFF;
+    --border-default: #364353;
+    --border-strong: #4A5B70;
+    --focus-ring: #55A9C7;
+    --status-online: #36B37E;
+    --status-warning: #EBB059;
+    --status-error: #FF6B7A;
+    --status-info: #55A9C7;
+
+    --color-scheme: dark;
+  }
+}

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHX — Real-time chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar left-sidebar" id="leftSidebar">
+      <div class="brand">
+        <div class="brand-mark">P</div>
+        <div><strong>PulseChat</strong><span>messaging</span></div>
+      </div>
+
+      <div class="connection-card">
+        <span class="status-dot" id="connectionDot"></span>
+        <div>
+          <small>SOCKET STATUS</small>
+          <b id="connectionText">Connecting…</b>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="section-title">PUBLIC CHANNELS <button class="icon-btn" id="refreshRooms" title="Refresh">↻</button></div>
+        <div id="roomList"></div>
+      </div>
+
+      <div class="nav-section">
+        <div class="section-title">PRIVATE CHATS</div>
+        <div id="dmList" class="nav-list muted-empty">No conversations yet</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="section-title">PRIVATE GROUPS <button class="tiny-action" id="joinGroupBtn">JOIN</button></div>
+        <div id="groupList" class="nav-list muted-empty">No private groups</div>
+        <button class="create-group" id="createGroupBtn">＋ Create private group</button>
+      </div>
+
+      <div class="nav-section online-preview">
+        <div class="section-title">ONLINE NOW <span id="onlineCount">0</span></div>
+        <div id="onlineList"></div>
+      </div>
+
+      <div class="profile-card">
+        <div class="avatar" id="profileAvatar">A</div>
+        <div class="profile-meta">
+          <b id="profileName">Guest</b>
+          <span><i class="status-dot online"></i> Online</span>
+        </div>
+        <button class="icon-btn" id="logoutBtn" title="Log out">↗</button>
+      </div>
+    </aside>
+
+    <main class="chat-panel">
+      <header class="chat-header">
+        <button class="mobile-btn" id="openLeft">☰</button>
+        <div class="conversation-icon" id="conversationIcon">#</div>
+        <div class="conversation-title">
+          <h1 id="conversationTitle">General</h1>
+          <span id="conversationSubtitle">Public channel · 0 members</span>
+        </div>
+        <div class="header-actions">
+          <button class="round-btn" id="searchBtn">⌕</button>
+          <button class="round-btn" id="openRight">☷</button>
+        </div>
+      </header>
+
+      <div class="search-bar hidden" id="searchBar">
+        <span>⌕</span><input id="searchInput" placeholder="Search this conversation…"><button id="closeSearch">×</button>
+      </div>
+
+      <section class="messages" id="messages">
+        <div class="welcome-state" id="welcomeState">
+          <div class="welcome-orb">✦</div>
+          <h2>Quietly connected.</h2>
+          <p>Choose a channel, start a direct chat, or create a private room.</p>
+        </div>
+      </section>
+
+      <div class="typing-bar" id="typingBar"></div>
+
+      <form class="composer" id="composer">
+        <button type="button" class="composer-btn" id="attachBtn" title="Attachment">＋</button>
+        <div class="input-wrap">
+          <textarea id="messageInput" rows="1" placeholder="Write a message…"></textarea>
+          <button type="button" class="emoji-btn" id="emojiBtn">☺</button>
+        </div>
+        <button type="submit" class="send-btn" id="sendBtn">➤</button>
+      </form>
+      <div class="composer-hint">Enter to send · Shift + Enter for a new line</div>
+    </main>
+
+    <aside class="sidebar right-sidebar" id="rightSidebar">
+      <div class="right-header">
+        <div>
+          <small>CONVERSATION</small>
+          <h2 id="rightTitle">General</h2>
+        </div>
+        <button class="mobile-btn" id="closeRight">×</button>
+      </div>
+
+      <div class="context-card" id="contextCard"></div>
+
+      <div class="member-heading"><span>MEMBERS</span><b id="memberCount">0</b></div>
+      <div class="member-list" id="memberList"></div>
+
+      <div class="group-code-card hidden" id="groupCodeCard">
+        <div>
+          <small>INVITATION CODE</small>
+          <code id="groupCode">PHX-XXXX-XXX</code>
+        </div>
+        <button id="copyCode">COPY</button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <div class="modal-backdrop hidden" id="loginModal">
+    <div class="modal small">
+      <div class="modal-kicker">WELCOME TO PulseChat</div>
+      <h2>Make the room yours.</h2>
+      <p>Choose a display name to enter the live workspace.</p>
+      <input id="usernameInput" maxlength="24" placeholder="Your name" autofocus>
+      <div class="avatar-picker" id="avatarPicker"></div>
+      <button class="primary-btn" id="loginBtn">Enter workspace <span>→</span></button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="groupModal">
+    <div class="modal wide">
+      <div class="modal-kicker">PRIVATE GROUP</div>
+      <h2 id="groupModalTitle">Create a private group</h2>
+      <p>Invite only the people you select. The generated code can be shared later.</p>
+      <label>Group name<input id="groupNameInput" maxlength="40" placeholder="e.g. Product Circle"></label>
+      <label>Members</label>
+      <div class="select-users" id="selectUsers"></div>
+      <div class="modal-actions">
+        <button class="ghost-btn" data-close="groupModal">Cancel</button>
+        <button class="primary-btn" id="confirmGroupBtn">Create group →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="joinModal">
+    <div class="modal small">
+      <div class="modal-kicker">JOIN PRIVATE GROUP</div>
+      <h2>Enter invitation code.</h2>
+      <p>Ask a group member for their PHX invitation code.</p>
+      <input id="groupCodeInput" placeholder="PHX-7K4M-92Q" autocomplete="off">
+      <div class="modal-actions">
+        <button class="ghost-btn" data-close="joinModal">Cancel</button>
+        <button class="primary-btn" id="confirmJoinBtn">Join group →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="emoji-pop hidden" id="emojiPop">
+    <button>❤️</button><button>😂</button><button>✨</button><button>🙌</button><button>🔥</button><button>🥹</button><button>👍</button><button>🎉</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

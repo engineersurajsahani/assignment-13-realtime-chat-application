@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: pulsechat-mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=pulsechat
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: pulsechat-server
+    restart: always
+    ports:
+      - '5000:5000'
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/pulsechat
+      - JWT_SECRET=pulsechat_production_secure_key_change_me
+      - CLIENT_ORIGIN=http://localhost:5173
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo-data:
